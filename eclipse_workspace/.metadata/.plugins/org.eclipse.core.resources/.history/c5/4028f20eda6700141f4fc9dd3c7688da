@@ -1,0 +1,91 @@
+
+<div ng-controller="ButtonsCtrl">
+    <h4>Single toggle</h4>
+    <pre>{{singleModel}}</pre>
+    <button type="button" class="btn btn-primary" ng-model="singleModel" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+        Single Toggle
+    </button>
+    <h4>Checkbox</h4>
+    <pre>{{checkModel}}</pre>
+    <div class="btn-group">
+        <label class="btn btn-primary" ng-model="checkModel.left" btn-checkbox>Left</label>
+        <label class="btn btn-primary" ng-model="checkModel.middle" btn-checkbox>Middle</label>
+        <label class="btn btn-primary" ng-model="checkModel.right" btn-checkbox>Right</label>
+    </div>
+    <h4>Radio &amp; Uncheckable Radio</h4>
+    <pre>{{radioModel || 'null'}}</pre>
+    <div class="btn-group">
+        <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Left'">Left</label>
+        <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Middle'">Middle</label>
+        <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Right'">Right</label>
+    </div>
+    <div class="btn-group">
+        <label class="btn btn-success" ng-model="radioModel" btn-radio="'Left'" uncheckable>Left</label>
+        <label class="btn btn-success" ng-model="radioModel" btn-radio="'Middle'" uncheckable>Middle</label>
+        <label class="btn btn-success" ng-model="radioModel" btn-radio="'Right'" uncheckable>Right</label>
+    </div>
+</div>
+
+    <div class="row" ng-controller="UserCtrl as uc">
+        &NonBreakingSpace;
+        <div class="jumbotron">
+            <h2>A Modern Web Template</h2>
+
+            <p class="pull-right">... a UI created using AngularJS and Bootstrap</p>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group">
+                <h3>
+                    Users
+                    <a ng-href="/#/users/create" class="btn btn-primary pull-right" id="btn_user_create">Add User</a>
+                </h3>
+                <hr>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="text" ng-model="searchText" placeholder="Type here to filter Users...">
+                <hr>
+            </div>
+            
+            
+            <div class="form-group">
+                <input class="form-control" type="text" ng-model="searchText" placeholder="Type here to select age...">
+                <hr>
+            </div>
+
+
+            <table id="user_list" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Age</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="usr in uc.users | filter:searchText">
+                    <td>
+                        {{ usr.firstName }}
+                    </td>
+                    <td>
+                        {{ usr.lastName }}
+                    </td>
+                    <td>
+                        {{ usr.age }}
+                    </td>
+                </tr>
+                <tr ng-hide="uc.users.length">
+                    <td colspan="3">
+                        <p class="text-center">No Users Found</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <hr>
+            <h4>Debug:</h4>
+            <pre>{{ uc.users | json }}</pre>
+        </div>
+
+    </div>
