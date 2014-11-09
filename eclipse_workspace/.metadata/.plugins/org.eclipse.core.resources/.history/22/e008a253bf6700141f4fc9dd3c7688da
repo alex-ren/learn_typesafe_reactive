@@ -1,6 +1,0 @@
-function init() {
-    var planet = document.getElementById("greenplanet");
-    planet.innerHTML = "Red Alert2."
-}
-
-window.onload = init;

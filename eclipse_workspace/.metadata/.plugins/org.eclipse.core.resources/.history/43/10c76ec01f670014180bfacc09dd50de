@@ -1,6 +1,0 @@
-package models;
-
-public class Person {
-	Model m_x;
-
-}
