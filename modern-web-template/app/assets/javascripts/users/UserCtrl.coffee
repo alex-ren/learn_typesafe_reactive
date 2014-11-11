@@ -1,9 +1,11 @@
 
 class UserCtrl
 
-    constructor: (@$log, @UserService) ->
+    constructor: (@$log, @$location, @UserService) ->
         @$log.debug "constructing UserController"
         @users = []
+        @userid = 0
+        @radioModel = 0
         @getAllUsers()
 
     getAllUsers: () ->
@@ -19,5 +21,21 @@ class UserCtrl
                 @$log.error "Unable to get Users: #{error}"
             )
 
+    deleteUser: () ->
+        @$log.debug "deleteUser()"
+        @user = @users[@userid]
+        @$log.debug "User to be deleted is" + @user
+        @UserService.deleteUser(@user)
+        .then(
+            (data) =>
+                @$log.debug "Promise returned #{data}"
+                @$log.debug "Ret is " + data
+                @getAllUsers()
+            ,
+            (error) =>
+                @$log.error "Unable to create User: #{error}"
+            )            
+
 
 controllersModule.controller('UserCtrl', UserCtrl)
+

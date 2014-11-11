@@ -61,6 +61,8 @@
             <table id="user_list2" class="table table-striped">
                 <thead>
                 <tr>
+                    <th>Select</th>
+                    <th>Fun</th>
                     <th>FirstName</th>
                     <th>LastName</th>
                     <th>Age</th>
@@ -69,7 +71,10 @@
                 <tbody>
                 <tr ng-repeat="usr in uc.users | filter:{age:age}">
                     <td>
-                        {{ usr.firstName }}
+                        <input type="radio" ng-model="uc.userid" name="delete_selector" value={{$index}}>
+                    </td>
+                    <td>
+                        {{ usr.firstName }} {{ uc.users.length }} {{$index}} {{uc.userid}}
                     </td>
                     <td>
                         {{ usr.lastName }}
@@ -85,6 +90,13 @@
                 </tr>
                 </tbody>
             </table>
+            
+            <form id="DeleteUser" name="DeleteUser" class="form-horizontal" role="form" ng-submit="uc.deleteUser()">
+	            <div>
+	              <button type="submit" class="btn btn-success pull-right" id="btn_user_delete">Delete User</button><hr>
+	            </div>
+            </form>
+            
 
             <hr>
             <h4>Debug:</h4>
