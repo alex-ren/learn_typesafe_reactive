@@ -16,7 +16,7 @@ class Application @Inject() (uuidGenerator: UUIDGenerator) extends Controller {
   private final val logger: Logger = LoggerFactory.getLogger(classOf[Application])
 
   def index = Action {
-    logger.info("Serving index page...sss")
+    logger.info("Serving index page...alex")
     Ok(views.html.index())
   }
 

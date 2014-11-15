@@ -33,6 +33,30 @@ class UsersIT extends Specification {
         result.header.status must equalTo(CREATED)
       }
     }
+    
+    "delete a valid json" in {
+      running(FakeApplication()) {
+        val request = FakeRequest.apply(POST, "/user").withJsonBody(Json.obj(
+          "firstName" -> "Jack",
+          "lastName" -> "London",
+          "age" -> 27,
+          "active" -> true))
+        val response = route(request)
+        response.isDefined mustEqual true
+        val result = Await.result(response.get, timeout)
+        result.header.status must equalTo(CREATED)
+        
+        val request2 = FakeRequest.apply(POST, "/deleteuser").withJsonBody(Json.obj(
+          "firstName" -> "Jack",
+          "lastName" -> "London",
+          "age" -> 27,
+          "active" -> true))
+        val response2 = route(request2)
+        response2.isDefined mustEqual true
+        val result2 = Await.result(response2.get, timeout)
+        result2.header.status must equalTo(CREATED)
+      }
+    }
 
     "fail inserting a non valid json" in {
       running(FakeApplication()) {

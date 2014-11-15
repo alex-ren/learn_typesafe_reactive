@@ -35,6 +35,29 @@ class Users extends Controller with MongoController {
 
   import models._
   import models.JsonFormats._
+  
+  
+  def deleteUser = Action.async(parse.json) {
+    request =>
+    /*
+     * request.body is a JsValue.
+     * There is an implicit Writes that turns this JsValue as a JsObject,
+     * so you can call remove() with this JsValue.
+     * (remove() takes a JsObject as parameter, or anything that can be
+     * turned into a JsObject using a Writes.)
+     */
+      request.body.validate[User].map {
+        user =>
+          val selector = user
+          // `user` is an instance of the case class `models.User`
+          collection.remove(user).map {
+            lastError =>
+              logger.info(s"xxxxxxxx Successfully deleted with LastError: $lastError")
+              // Create result.header.status, which in this case is "CREATED" as contrast to BADREQUEST
+              Created(s"User Deleted")
+          }
+      }.getOrElse(Future.successful(BadRequest("invalid json")))
+  }
 
   def createUser = Action.async(parse.json) {
     request =>

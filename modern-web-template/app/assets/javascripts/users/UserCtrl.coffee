@@ -33,8 +33,22 @@ class UserCtrl
                 @getAllUsers()
             ,
             (error) =>
-                @$log.error "Unable to create User: #{error}"
-            )            
+                @$log.error "Unable to delete User: #{error}"
+            )   
+            
+    deleteUserArg: (auser) ->
+        @$log.debug "deleteUserArg()"
+        @$log.debug "User to be deleted is" + auser
+        @UserService.deleteUser(auser)
+        .then(
+            (data) =>
+                @$log.debug "Promise returned #{data}"
+                @$log.debug "Ret is " + data
+                @getAllUsers()
+            ,
+            (error) =>
+                @$log.error "Unable to delete User: #{error}"
+            )                        
 
 
 controllersModule.controller('UserCtrl', UserCtrl)
