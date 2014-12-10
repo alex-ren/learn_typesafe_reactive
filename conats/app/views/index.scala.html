@@ -5,33 +5,13 @@
 <html ng-app="root">
     <body>
 	<div ng-controller="index">
-		<div>
-			Favorite word: <input type="text" ng-model="favoriteWord" />
-			- {{favoriteWord}}
-		</div>
-		<div>
-			Favorite color:
-			<input type="radio" name="fc" value="Red" ng-model="favoriteColor">Red</input>
-			<input type="radio" name="fc" value="Green" ng-model="favoriteColor">Green</input>
-			<input type="radio" name="fc" value="Yellow" ng-model="favoriteColor">Yellow</input>
-			<input type="radio" name="fc" value="Blue" ng-model="favoriteColor">Blue</input>
-			- {{favoriteColor}}
-		</div>
-		<div>
-			Favorite shape:
-			<select ng-model="favoriteShape">
-				<option value="Circle">Circle</option>
-				<option value="Triangle">Triangle</option>
-				<option value="Square">Square</option>
-			</select>
-			- {{favoriteShape}}
-		</div>
         
         <h3><a href="#1">ATS Program</a></h3>  
         Open program in ConATS: <input id="atsfile" type="file">
-		<div class="myeditor" id="atseditor">function foo(items) { var x = "All this is
-			syntax highlighted"; return x; }</div>
-
+ 
+		<div class="myeditor" id="atseditor">// Please write program here.</div>
+		
+		<button type="button" class="btn btn-info" ng-click="typeCheck()">Type Checking ATS Program.</button>
     	<h3><a href="#2">CSPS Model</a></h3>
     	<div>
         	<div class="myeditor" id="cspseditor" style="height: 250px; width: 500px">some text 2</div>
@@ -40,12 +20,7 @@
     	<div>
         	<div class="myeditor" id="editor3" style="height: 250px; width: 500px">some text 2</div>
    		</div>
-   		
-   		
-   		
-   		
-   		
-   		  
+
 	</div>
     </body>
 </html>

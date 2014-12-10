@@ -1,18 +1,18 @@
 
-if (window.console) {
-  console.log("root.js111!");
-}
 
-angular.module("root", [])
+angular.module("root", ['ui.bootstrap'])  // 
 .controller("index", ["$scope", function($scope) {
     $scope.favoriteWord;
     $scope.favoriteColor;
     $scope.favoriteShape;
+    $scope.value;
+    $scope.typeCheck = function () {
+    	if (window.console) {
+    	  console.log("root.typecheck!");
+    	}
+    }
 }]);
 
-if (window.console) {
-  console.log("root.js222!");
-}
 
 
     
