@@ -5,30 +5,36 @@
 <html ng-app="root">
     <body>
 	<div ng-controller="index" class="container-fluid">
-        
-        <h3><a href="#1">ATS Program</a></h3>
-        
-        <div class="row">
-        <div class="col-md-2">Open program in ConATS: <input id="atsfile" type="file"></div>
+	    <div class="row">
+	        <h3><a href="#1">ATS Program</a></h3>
+	    </div>
+        <div class="row top5">
+            <div class="col-md-2">Open .dats file</div>
+            <div class="col-md-2"><input id="atsfile" type="file"></div>
         </div>
-        <div class="row">
-        <div class="col-md-12">
-		<div class="myeditor" id="atseditor">// Please write program here.</div>
+        <div class="row top5">
+            <div class="col-md-12">
+		        <div class="myeditor" id="atseditor">// Please write program here.</div>
+		    </div>
 		</div>
+		<div class="row top5">
+		    <div class="col-md-12">
+		        <button type="button" class="btn btn-info" ng-click="typeCheck()">Type Checking ATS Program.</button>
+		    </div>
 		</div>
-		<button type="button" class="btn btn-info" ng-click="typeCheck()">Type Checking ATS Program.</button>
-		<div>
-		<pre>{{typecheckres}}</pre>
+		<div class="row top5">
+		    <div class="col-md-12">
+		        <pre>{{typecheckres}}</pre>
+		    </div>
 		</div>
-    	<h3><a href="#2">CSPS Model</a></h3>
-    	<div>
-        	<div class="myeditor" id="cspseditor" style="height: 250px; width: 500px">some text 2</div>
+		<div class="row top17">
+    	    <h3><a href="#2">CSPS Model</a></h3>
     	</div>
-    	<h3><a href="#3">Section 3</a></h3>
-    	<div>
-        	<div class="myeditor" id="editor3" style="height: 250px; width: 500px">some text 2</div>
-   		</div>
-
+    	<div class="row top5">
+    	    <div class="col-md-12">
+        	    <div class="myeditor" id="cspseditor" style="height: 250px; width: 500px">some text 2</div>
+        	</div>
+    	</div>
 	</div>
     </body>
 </html>
