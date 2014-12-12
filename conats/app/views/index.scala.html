@@ -4,14 +4,22 @@
 <!DOCTYPE html>
 <html ng-app="root">
     <body>
-	<div ng-controller="index">
+	<div ng-controller="index" class="container-fluid">
         
-        <h3><a href="#1">ATS Program</a></h3>  
-        Open program in ConATS: <input id="atsfile" type="file">
- 
+        <h3><a href="#1">ATS Program</a></h3>
+        
+        <div class="row">
+        <div class="col-md-2">Open program in ConATS: <input id="atsfile" type="file"></div>
+        </div>
+        <div class="row">
+        <div class="col-md-12">
 		<div class="myeditor" id="atseditor">// Please write program here.</div>
-		
+		</div>
+		</div>
 		<button type="button" class="btn btn-info" ng-click="typeCheck()">Type Checking ATS Program.</button>
+		<div>
+		<pre>{{typecheckres}}</pre>
+		</div>
     	<h3><a href="#2">CSPS Model</a></h3>
     	<div>
         	<div class="myeditor" id="cspseditor" style="height: 250px; width: 500px">some text 2</div>

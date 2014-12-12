@@ -21,10 +21,13 @@ in_atsfile.onchange = function() {
 	    r.onload = function(e) { 
 	        var contents = e.target.result;
 	        editor.setValue(contents);
+	        atscode = contents;
 	    }
 	    r.readAsText(f);
 	} 
 
 };
+
+var atscode;
 
 

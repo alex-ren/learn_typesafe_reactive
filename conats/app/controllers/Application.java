@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import play.*;
 import play.mvc.*;
 
+import utils.Utils;
 import views.html.*;
 
 public class Application extends Controller {
@@ -21,7 +22,7 @@ public class Application extends Controller {
 			return badRequest("Missing parameter [name]");
 		} else {
 			Logger.info("code is " + code);
-			return ok("Hello " + code);
+			return ok(Utils.typeCheck(code));
 		}
 
 	}
