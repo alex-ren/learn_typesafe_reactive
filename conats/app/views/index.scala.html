@@ -6,20 +6,26 @@
     <body>
 	<div ng-controller="index" class="container-fluid">
 	    <div class="row">
-	        <h3><a href="#1">ATS Program</a></h3>
+	        <div class="col-md-12">
+	            <h3><a href="#1">ATS Program</a></h3>
+	        </div>
 	    </div>
         <div class="row top5">
-            <div class="col-md-2">Open .dats file</div>
-            <div class="col-md-2"><input id="atsfile" type="file"></div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-info" ng-click="selectATS()">Select ATS file</button>
+                <button type="button" class="btn btn-info" style="visibility:hidden; width: 0; height: 0;" ng-click="updateATSFile()" id=update_ats_file></button>
+                <input type="file" id="atsfile">
+            </div>
+            <div class="col-md-3"><p class="text-nowrap">{{ats_file}}</p></div>
         </div>
         <div class="row top5">
             <div class="col-md-12">
-		        <div class="myeditor" id="atseditor">// Please write program here.</div>
+		        <div class="myeditor" id="atseditor"></div>
 		    </div>
 		</div>
 		<div class="row top5">
 		    <div class="col-md-12">
-		        <button type="button" class="btn btn-info" ng-click="typeCheck()">Type Checking ATS Program.</button>
+		        <button type="button" class="btn btn-info" ng-click="typeCheck()">Type Check ATS Program.</button>
 		    </div>
 		</div>
 		<div class="row top5">
@@ -28,13 +34,36 @@
 		    </div>
 		</div>
 		<div class="row top17">
-    	    <h3><a href="#2">CSPS Model</a></h3>
+		    <div class="col-md-12">
+    	        <h3><a href="#2">CSP# Model</a></h3>
+    	    </div>
+    	</div>
+    	<div class= "row top5">
+    	    <div class="col-md-1">
+                <button type="button" class="btn btn-info" ng-click="genModel()">Generate model.</button>
+            </div>
     	</div>
     	<div class="row top5">
     	    <div class="col-md-12">
-        	    <div class="myeditor" id="cspseditor" style="height: 250px; width: 500px">some text 2</div>
+        	    <div class="myeditor" id="cspseditor"></div>
         	</div>
     	</div>
+    	
+    	<div class="row top17">
+            <div class="col-md-12">
+                <h3><a href="#3">PAT Model Checker</a></h3>
+            </div>
+        </div>
+        <div class= "row top5">
+            <div class="col-md-1">
+                <button type="button" class="btn btn-info" ng-click="modelCheck()">Verify model.</button>
+            </div>
+        </div>
+        <div class="row top5">
+            <div class="col-md-12">
+                <pre>{{modelcheckres}}</pre>
+            </div>
+        </div>
 	</div>
     </body>
 </html>
