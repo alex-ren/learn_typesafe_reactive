@@ -70,6 +70,14 @@ public class Application extends Controller {
 			result.put("errno", res.m_errno);
 			result.put("msg", res.m_msg);
 			result.put("result", res.m_res);
+			try {
+				Logger.info("begin sleep");
+				Thread.sleep(1000);
+				Logger.info("end sleep");
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return ok(result);
 		}
 

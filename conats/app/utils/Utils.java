@@ -113,21 +113,25 @@ public class Utils {
     		String msg = readFromProcess(childpat.getInputStream());
         	int returnCode = childpat.waitFor();
         	Logger.info("returnCode is " + returnCode + " msg is " + msg);
-        	if (0 == returnCode) {
+        	if (0 == returnCode) {  // returnCode is useless
         		Scanner scan = new Scanner(file_result).useDelimiter("\\Z");
-        		String result = "";
+        		String result = null;
         		if (scan.hasNext()) {
         			result = scan.next();
         		}
+        		if (msg.startsWith("PAT finished successfully.")) {
+        			return new ModelCheckResult(0, msg, result);
+        		} else {
+        			return new ModelCheckResult(1, msg, result);
+        		}
         		
-        		return new ModelCheckResult(0, msg, result);
         	} else {
         		return new ModelCheckResult(1, msg, "");
         	}
 		} catch (IOException e) {
-			return new ModelCheckResult(1, e.getMessage(), "");
+			return new ModelCheckResult(1, e.getMessage(), null);
 		} catch (InterruptedException e) {
-			return new ModelCheckResult(1, e.getMessage(), "");
+			return new ModelCheckResult(1, e.getMessage(), null);
 		}
 		
 

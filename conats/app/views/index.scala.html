@@ -11,7 +11,7 @@
 	        </div>
 	    </div>
         <div class="row top5">
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <button type="button" class="btn btn-info" ng-click="selectATS()">Select ATS file</button>
                 <button type="button" class="btn btn-info" style="visibility:hidden; width: 0; height: 0;" ng-click="updateATSFile()" id=update_ats_file></button>
                 <input type="file" id="atsfile">
@@ -56,14 +56,20 @@
         </div>
         <div class= "row top5">
             <div class="col-md-1">
-                <button type="button" class="btn btn-info" ng-click="modelCheck()">Verify model.</button>
+                <button type="button" class="btn btn-info" ng-click="modelCheck()" ng-disabled="isModelChecking">Verify model.</button>
             </div>
         </div>
         <div class="row top5">
             <div class="col-md-12">
-                <pre>{{modelcheckres}}</pre>
+                <pre>{{modelcheckmsg}}</pre>
             </div>
         </div>
+        <div class="row top5" ng-if="hasRes">
+            <div class="col-md-12">
+                <p>The model checking result goes as follows:</p>
+                <pre>{{modelcheckres}}</pre>
+            </div>
+        </div>        
 	</div>
     </body>
 </html>

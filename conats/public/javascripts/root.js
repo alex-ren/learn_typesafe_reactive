@@ -1,4 +1,14 @@
 
+// Tell pace to track Post.
+window.paceOptions = {
+    ajax: {
+        trackMethods: ["GET", "POST"],
+        trackWebSockets: false
+    },
+    document: false,
+    restartOnPushState: false
+};
+    
 var atseditor = ace.edit("atseditor");
 atseditor.setTheme("ace/theme/monokai");
 atseditor.setValue("// Please write program here.\n");
@@ -90,17 +100,39 @@ angular.module("root", ['ui.bootstrap'])  //
 	
 	// ============================
 	
-	$scope.modelcheckres = "No model checking result yet.";
+	$scope.modelcheckmsg = "No model checking result yet.";
+	$scope.modelcheckres = "no output yet";
+	$scope.hasRes = false;
+	$scope.isModelChecking = false;
+	
     $scope.modelCheck = function () {
     	if (window.console) {
     	  console.log("root.modelcheck!");
     	}
+    	
+
     	var atscode = cspseditor.getValue();
+    	$scope.isModelChecking = true;
     	$http.post('/ats/modelcheck', {code: atscode}).
     	  success(function(data, status, headers, config) {
-    		  $scope.modelcheckres = data;
+    		  $scope.isModelChecking = false;
+//  			result.put("errno", res.m_errno);
+//			result.put("msg", res.m_msg);
+//			result.put("result", res.m_res);
+    		  $scope.modelcheckmsg = data.msg;
+    		  if (0 == data.errno) {
+    			  console.log("errno is " + data.errno);
+    			  $scope.hasRes = true;
+    			  $scope.modelcheckres = data.result;
+    		  } else {
+    			  $scope.hasRes = false;
+    			  $scope.modelcheckres = "You should not see me.";
+    			  
+    		  }
+    		  
     	  }).
     	  error(function(data, status, headers, config) {
+    		  $scope.isModelChecking = false;
     		  alert("Exception occurrs in model checking:\n" + data);
     	  });
     };
