@@ -23,12 +23,26 @@ var ats_file_name;  // variable crossing the boundary of AngularJS
 
 
 angular.module("root", ['ui.bootstrap'])  // 
-.controller("index", ["$scope", "$http", function($scope, $http) {
+.controller("index", ["$scope", "$http", "$q", function($scope, $http, $q) {
     $scope.favoriteWord;
     $scope.favoriteColor;
     $scope.favoriteShape;
-    $scope.value;
-    $scope.typecheckres = "No Type Checking Result yet";
+//    $scope.value;
+    
+
+    $scope.atsexps = ["a.dats", "bbbbb.dats", "c.dats"];
+    $scope.selectATSExample = function(index) {
+    	$scope.ats_file = $scope.atsexps[index];
+    	
+    	ret = $http.get('/assets/atsexamples/' + $scope.ats_file).
+	    	success(function(data, status, headers, config) {
+	    		atseditor.setValue(data);
+	    	}).
+	    	error(function(data, status, headers, config) {
+	    		alert("Error " + status);
+	    	})
+    }
+    
     $scope.selectATS = function () {
         var fileInput = document.querySelector('#atsfile');
         fileInput.click();  // use the invisible fileInput to select the file
@@ -38,6 +52,7 @@ angular.module("root", ['ui.bootstrap'])  //
     	$scope.ats_file = ats_file_name;
     }    
     
+    $scope.typecheckres = "No Type Checking Result yet";
     $scope.typeCheck = function () {
     	if (window.console) {
     	  console.log("root.typecheck!");
@@ -57,7 +72,7 @@ angular.module("root", ['ui.bootstrap'])  //
 
 	// ============================
     
-	var in_atsfile = document.getElementById("atsfile");
+	var in_atsfile = document.getElementById("atsfile"); // <input type="file" ...
 	//in_atsfile.onclick = function() {
 	//	this.value = null;
 	//};

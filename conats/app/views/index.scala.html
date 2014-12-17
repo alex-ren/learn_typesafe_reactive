@@ -11,12 +11,28 @@
 	        </div>
 	    </div>
         <div class="row top5">
+            <div class="col-md-3">
+                <div class="btn-group" dropdown>
+		        <button type="button" class="btn btn-info">Select ATS Example</button>
+		        <button type="button" class="btn btn-info dropdown-toggle" dropdown-toggle>
+		        <span class="caret"></span>
+		        <span class="sr-only">Split button!</span>
+		        </button>
+		        <ul class="dropdown-menu" role="menu">
+		            <li ng-repeat="atsexp in atsexps">
+		            <a href="#" ng-click="selectATSExample($index)">{{atsexps[$index]}}</a>
+		            </li>
+		        </ul>
+		        </div>
+		    </div>        
             <div class="col-md-2">
-                <button type="button" class="btn btn-info" ng-click="selectATS()">Select ATS file</button>
+                <button type="button" class="btn btn-info" ng-click="selectATS()">Select local ATS file</button>
                 <button type="button" class="btn btn-info" style="visibility:hidden; width: 0; height: 0;" ng-click="updateATSFile()" id=update_ats_file></button>
                 <input type="file" id="atsfile">
             </div>
-            <div class="col-md-3"><p class="text-nowrap">{{ats_file}}</p></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"><p class="text-nowrap">{{ats_file}}</p></div>
         </div>
         <div class="row top5">
             <div class="col-md-12">
