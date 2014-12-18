@@ -9,11 +9,8 @@ Amazon Web Service (AWS).
 Create EC2 instance. The instance is called server in the following document.
 1. AMI used: Ubuntu Server 14.04 LTS (HVM), SSD Volume Type - ami-3d50120d
 
-2. Logging:
-Refer to ~/workspace/aws for further information.
 
 # ********* ********* ********* ********* #
-
 Please refer to document from AWS for details about login onto the server.
 
 Server Configuration :
@@ -43,22 +40,14 @@ Download Activator to
 Decompress the package to
 ~/Program/activator-1.2.10
 
-4. Install ATS-Anairats
-
-5. Install ATS-Postiats
-
-6. Instal PAT
-
 4. Get the project for the web application from Github. The repository
 goes as follows:
 https://github.com/alex-ren/learn_typesafe_reactive.git
 
 In the following text, the local repository is referred to as WEBSERVER.
-
-For conats, WEBSERVER is ~/workspace/learn_typesafe/conats
+In my case, WEBSERVER is ~/workspace/learn_typesafe_reactive/modern-web-template
 
 5. Run the web server
-
 $ cd WEBSERVER
 $ sudo ./activator  # Must have root privilege to bind port 80
 [modern-web-template] $ start 80 -Dapplication.secret=abc
@@ -68,7 +57,7 @@ $ sudo ./activator  # Must have root privilege to bind port 80
 Testing the web server
 
 Visit the following web address:
-http://54.149.186.200
+http://54.148.139.136
 
 # ********* ********* ********* ********* #
 
@@ -76,12 +65,6 @@ http://54.149.186.200
 
 
 
-Install 
-ATS
-PAT
-
-Mono
->> sudo apt-get install mono-complete
 
 
 
