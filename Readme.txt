@@ -24,65 +24,35 @@ $ sudo apt-get install default-jre
 $ sudo apt-get install default-jdk
 $ java -version  # The default is OpenJDK 7
 
-2. Install MongoDB
-Download MongoDB Production Release (2.6.5) to
-~/Download/mongodb-linux-x86_64-2.6.5.tgz
-
-Decompress the package to
-~/Program/mongodb-linux-x86_64-2.6.5
-
-Create directory ~/data/db
-
-Run the MongoDB by executing the following command.
-$ ~/Program/mongodb-linux-x86_64-2.6.5/bin/mongod --dbpath ~/data/db 
-
-3. Install Activator
+2. Install Activator
 Download Activator to
 ~/Download/typesafe-activator-1.2.10.zip
 
 Decompress the package to
 ~/Program/activator-1.2.10
 
-4. Install ATS-Anairats
-
-5. Install ATS-Postiats
-
-6. Instal PAT
-
-4. Get the project for the web application from Github. The repository
+2. Get the project for the web application from Github. The repository
 goes as follows:
 https://github.com/alex-ren/learn_typesafe_reactive.git
 
 In the following text, the local repository is referred to as WEBSERVER.
 
-For conats, WEBSERVER is ~/workspace/learn_typesafe/conats
-
-5. Run the web server
-
-$ cd WEBSERVER
-$ sudo ./activator  # Must have root privilege to bind port 80
-[modern-web-template] $ start 80 -Dapplication.secret=abc
 
 # ********* ********* ********* ********* #
 
-Testing the web server
+Examples:
 
-Visit the following web address:
-http://54.149.186.200
+1. Reactive woth Mongo
 
-# ********* ********* ********* ********* #
+Please refer to 
+$WEBSERVER/modern-web-template/Readme.txt
+for details.
 
+2. ConcurrentATS
 
-
-
-
-Install 
-ATS
-PAT
-
-Mono
->> sudo apt-get install mono-complete
-
+Please refer to 
+$WEBSERVER/conats/Readme.txt
+for details.
 
 
 
