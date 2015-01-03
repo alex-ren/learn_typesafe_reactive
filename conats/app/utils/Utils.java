@@ -8,11 +8,11 @@ import jats.utfpl.utils.SystemEnv;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Scanner;
 
 import play.Logger;
@@ -29,27 +29,86 @@ public class Utils {
 		return lines;
 	}
 	
+	static String getProcessCommand(ProcessBuilder pb) {
+		List<String> coms = pb.command();
+		String command = "";
+		for (String com: coms) {
+			command += com + " ";
+		}
+		
+		return command;
+	}
+	
 	public static String typeCheck(String code) {
 		try {
-			File temp = File.createTempFile("temp-file-name", ".dats");
-			Logger.info("ATS file is " + temp.getAbsolutePath());
-            FileWriter tempWriter = new FileWriter(temp.getAbsolutePath());
+        	// Create temporary directory.
+        	File tempDir = new File(System.getProperty("java.io.tmpdir", null), "conats" + Long.toString(System.nanoTime()));
+            if (!tempDir.exists() && !tempDir.mkdir())
+                throw new IOException("Failed to create temporary directory " + tempDir);
+            Logger.info("tempDir is " + tempDir.getAbsolutePath());
+            
+            // Write ATS file.
+            File atsFile = new File(tempDir, "model.dats");
+            atsFile.createNewFile();  // Impossible that the file already exists.
+			Logger.info("ATS file is " + atsFile.getAbsolutePath());
+            FileWriter tempWriter = new FileWriter(atsFile.getAbsolutePath());
             BufferedWriter bfWriter = new BufferedWriter(tempWriter);
             bfWriter.write(code);
             bfWriter.close();
             
-            Logger.info("code is " + code);
-			
-        	ProcessBuilder pb = new ProcessBuilder("patsopt", "-tc", "-d", temp.getAbsolutePath());
+//            Logger.info("code is " + code);
+            
+            // Generate list for remote files.
+            File listFile = new File(tempDir.getAbsolutePath(), "pdgreloc.json");
+        	ProcessBuilder pb = new ProcessBuilder("patsopt", 
+        			"--pkgreloc", "-DATS", "ATSPKGRELOCROOT=\"" + tempDir.getAbsolutePath() + "\"",
+        			"--output-w", listFile.getAbsolutePath(),
+        			"-d", atsFile.getAbsolutePath());
+
+        	Logger.info("cmd is " + getProcessCommand(pb));
         	pb.redirectErrorStream(true);
         	Process child = pb.start();
-    		String lines = readFromProcess(child.getInputStream());
+        	String lines = readFromProcess(child.getInputStream());
         	int returnCode = child.waitFor();
-        	if (0 == returnCode) {
-        		return "Type Checking succeeded.";
+        	Logger.info("returnCode is " + returnCode);
+        	if (0 != returnCode) {
+        		lines = "\"patsopt --pkgreloc\" failed.\n" + lines;
+        		Logger.info(lines);
+        		return lines;
         	}
-    		Logger.info("msg is " + lines);
-    		return lines;      
+        	
+           	// Download remote files.
+        	pb = new ProcessBuilder("atspkgreloc_curl", listFile.getAbsolutePath());
+        	Logger.info("cmd is " + getProcessCommand(pb));
+        	pb.redirectErrorStream(true);
+        	child = pb.start();
+        	lines = readFromProcess(child.getInputStream());
+        	returnCode = child.waitFor();
+        	Logger.info("returnCode is " + returnCode);
+        	if (0 != returnCode) {
+        		lines = "\"atspkgreloc_curl\" failed.\n" + lines;
+        		Logger.info(lines);
+        		return lines;
+        	}
+        	
+        	// Type check the input file
+        	pb = new ProcessBuilder("patsopt", 
+        			"-DATS", "ATSPKGRELOCROOT=\"" + tempDir.getAbsolutePath() + "\"",
+        			"-tc", "-d", atsFile.getAbsolutePath());
+        	Logger.info("cmd is " + getProcessCommand(pb));
+        	pb.redirectErrorStream(true);
+        	child = pb.start();
+    		lines = readFromProcess(child.getInputStream());
+        	returnCode = child.waitFor();
+        	Logger.info("returnCode is " + returnCode);
+        	if (0 != returnCode) {
+        		lines = "\"patsopt -tc\" failed.\n" + lines;
+        		Logger.info(lines);
+        		return lines;
+        	}
+
+        	return "Type Checking succeeded.\n" + lines;
+ 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

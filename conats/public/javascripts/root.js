@@ -31,7 +31,7 @@ angular.module("root", ['ui.bootstrap'])  //
     
 
     // ATS examples in folder atsexamples/
-    $scope.atsexps = ["05_use_ref.dats", "08_use_mutex.dats", "16_reader_writer.dats", "19_mc_view.dats", "20_four_slot.dats"];
+    $scope.atsexps = ["05_use_ref.dats", "08_use_mutex.dats", "16_producer_consumer.dats", "19_mc_view.dats", "20_four_slot.dats"];
     
     $scope.selectATSExample = function(index) {
     	$scope.ats_file = $scope.atsexps[index];
