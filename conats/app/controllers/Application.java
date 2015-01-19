@@ -60,11 +60,13 @@ public class Application extends Controller {
 	public static Result modelcheck() {
 		JsonNode json = request().body().asJson();
 		String code = json.findPath("code").textValue();
-		if (code == null) {
+		int engine = json.findPath("engine").asInt();
+		
+		if (null == code) {
 			return badRequest("Missing parameter [code]");
 		} else {
 //			Logger.info("model check, code is " + code);
-			ModelCheckResult res = Utils.modelCheck(code);
+			ModelCheckResult res = Utils.modelCheck(code, engine);
 			
 			ObjectNode result = Json.newObject();
 			result.put("errno", res.m_errno);

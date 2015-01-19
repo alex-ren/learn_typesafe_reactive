@@ -24,7 +24,7 @@ public class Utils {
 		String lines = "";
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		while ((line = reader.readLine()) != null) {
-			lines += line;
+			lines += line + "\n";
 		}
 		return lines;
 	}
@@ -149,7 +149,7 @@ public class Utils {
 		}
 	}
 
-	public static ModelCheckResult modelCheck(String code) {
+	public static ModelCheckResult modelCheck(String code, int engine) {
 
 		try {
 			File file_model = File.createTempFile("temp-file-name", ".csp");
@@ -160,7 +160,13 @@ public class Utils {
 	        bfWriter.close();
 	        
 	        File file_result = FilenameUtils.changeExt(file_model, FilenameUtils.cTxt);
-        	ProcessBuilder pbpat3 = new ProcessBuilder("mono", SystemEnv.getPATPath(), "-csp", file_model.getAbsolutePath(), file_result.getAbsolutePath());
+        	ProcessBuilder pbpat3 = new ProcessBuilder("mono", 
+        			SystemEnv.getPATPath(), 
+        			"-engine", Integer.toString(engine),
+        			"-csp", file_model.getAbsolutePath(), 
+        			file_result.getAbsolutePath());
+
+            
         	String cmd = "";
         	for (String s: pbpat3.command()) {
         		cmd += (s + " ");

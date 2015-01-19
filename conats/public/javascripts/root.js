@@ -31,7 +31,17 @@ angular.module("root", ['ui.bootstrap'])  //
     
 
     // ATS examples in folder atsexamples/
-    $scope.atsexps = ["05_use_ref.dats", "08_use_mutex.dats", "16_producer_consumer.dats", "19_mc_view.dats", "20_four_slot.dats"];
+    $scope.atsexps = ["16_1_producer_consumer_m_1.dats", 
+                      "16_2_producer_consumer_m_1_2cond.dats",
+                      "16_3_producer_consumer_m_m_signal.dats",
+                      "16_4_producer_consumer_m_m_broadcast.dats",
+                      "16_producer_consumer.dats",
+                      "24_global_ghost_variable.dats",
+                      "18_atomic_opr.dats",
+                      "20_1_two_slot_acm.dats",
+                      "20_2_three_slot_acm.dats",
+                      "20_3_four_slot_acm.dats"
+                      ];
     
     $scope.selectATSExample = function(index) {
     	$scope.ats_file = $scope.atsexps[index];
@@ -55,6 +65,8 @@ angular.module("root", ['ui.bootstrap'])  //
     }    
     
     $scope.typecheckres = "No Type Checking Result yet";
+    
+    // click the button for type checking
     $scope.typeCheck = function () {
     	if (window.console) {
     	  console.log("root.typecheck!");
@@ -85,7 +97,7 @@ angular.module("root", ['ui.bootstrap'])  //
 		var f = this.files[0];
 		ats_file_name = f.name;
 		var hackbt = document.getElementById("update_ats_file");  // use the button inspected by AngularJS
-		hackbt.click();
+		hackbt.click();  // Trigger the file name to be shown accordingly by the "$scope.updateATSFile"
 		if (!f) {
 			
 	//	} else if (!f.type.match('csp.*')) {
@@ -116,6 +128,7 @@ angular.module("root", ['ui.bootstrap'])  //
 	}
 	
 	// ============================
+	$scope.engine = 0;
 	
 	$scope.modelcheckmsg = "No model checking result yet.";
 	$scope.modelcheckres = "no output yet";
@@ -130,7 +143,7 @@ angular.module("root", ['ui.bootstrap'])  //
 
     	var atscode = cspseditor.getValue();
     	$scope.isModelChecking = true;
-    	$http.post('/ats/modelcheck', {code: atscode}).
+    	$http.post('/ats/modelcheck', {code: atscode, engine:$scope.engine}).
     	  success(function(data, status, headers, config) {
     		  $scope.isModelChecking = false;
 //  			result.put("errno", res.m_errno);
