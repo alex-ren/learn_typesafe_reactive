@@ -31,6 +31,8 @@ Download Activator to
 Decompress the package to
 ~/Program/activator-1.2.10
 
+Add '~/Program/activator-1.2.10' to the PATH.
+
 2. Get the project for the web application from Github. The repository
 goes as follows:
 https://github.com/alex-ren/learn_typesafe_reactive.git
